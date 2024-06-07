@@ -10,9 +10,12 @@ public class Estacion {
     private double costoProduccion;
     private double tiempoTotal;
     private int piezasDefectuosas;
+    //-----------------------------------
+    private boolean estado;
 
     public Estacion(String tipo) {
         this.tipo = tipo;
+        this.estado = true;
     }
 
     public String getTipo() {
@@ -69,6 +72,10 @@ public class Estacion {
 
     public void setPiezasDefectuosas(int piezasDefectuosas) {
         this.piezasDefectuosas = piezasDefectuosas;
+    }
+
+    void operar() {
+        this.estado = false;
     }
     
     
