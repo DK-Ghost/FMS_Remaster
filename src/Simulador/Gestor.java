@@ -3,6 +3,8 @@ package Simulador;
 import java.util.ArrayList;
 import Simulador.Estacion;
 import Simulador.EstacionesPanel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public class Gestor {
@@ -11,9 +13,11 @@ public class Gestor {
     private ArrayList<Pieza> almacen;
     private EstacionesPanel panelMain;
     private ArrayList<Estacion> estaciones;
+    public static int cortadoraEstado = 0;
 
-    public void empezar() {
-
+    public void empezar() {        
+        generarListener();
+                
         panelMain = new EstacionesPanel();
         panelMain.setVisible(true);
 
@@ -23,13 +27,20 @@ public class Gestor {
         Estacion estacion = estaciones.get(0);
         System.out.println(estacion.getTipo());
         
-        estacion.operar();
-        panelMain.setEstadoCortadora(false);
+        estacion.operar();        
     }
 
+    public static int getCortadoraEstado() {
+        return cortadoraEstado;
+    }
+
+    public static void setCortadoraEstado(int cortadoraEstado) {
+        Gestor.cortadoraEstado = cortadoraEstado;
+    }
+  
     private ArrayList<Estacion> crearEstaciones() {
         ArrayList<Estacion> estaciones = new ArrayList();
-        estaciones.add(new Estacion("corte"));
+        estaciones.add(new Cortadora());
         estaciones.add(new Estacion("doblez"));
         estaciones.add(new Estacion("ensamble"));
         estaciones.add(new Estacion("pintura"));
@@ -62,6 +73,17 @@ public class Gestor {
         }
 
         return piezas;
+    }
+
+    private void generarListener() {
+        Runnable list = new Listener();
+        Thread t = new Thread(list);
+        t.start();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
