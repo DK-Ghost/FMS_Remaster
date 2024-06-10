@@ -5,11 +5,10 @@
         <group>
             <file>file:/D:/Projects/FMS_Remaster/src/Simulador/Cortadora.java</file>
             <file>file:/D:/Projects/FMS_Remaster/src/Simulador/EstacionesPanel.java</file>
-            <file>file:/D:/Projects/FMS_Remaster/src/Simulador/Pieza.java</file>
-            <file>file:/D:/Projects/FMS_Remaster/src/Simulador/Transportador.java</file>
+            <file>file:/D:/Projects/FMS_Remaster/src/Simulador/Dobladora.java</file>
             <file>file:/D:/Projects/FMS_Remaster/src/Simulador/Estacion.java</file>
             <file>file:/D:/Projects/FMS_Remaster/src/Simulador/Gestor.java</file>
-            <file>file:/D:/Projects/FMS_Remaster/src/Simulador/Listener.java</file>
+            <file>file:/D:/Projects/FMS_Remaster/src/Simulador/Herramientas.java</file>
             <file>file:/D:/Projects/FMS_Remaster/src/App/App.java</file>
         </group>
     </open-files>

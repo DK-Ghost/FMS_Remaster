@@ -1,11 +1,8 @@
 package Simulador;
 
 import java.util.ArrayList;
-import Simulador.Estacion;
-import Simulador.EstacionesPanel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 
 public class Gestor {
 
@@ -13,7 +10,6 @@ public class Gestor {
     private ArrayList<Pieza> almacen;
     public static EstacionesPanel panelMain;
     private ArrayList<Estacion> estaciones;
-    public static int cortadoraEstado = 0;
     public static Estacion cortadora;
     public static Estacion dobladora;
 
@@ -26,18 +22,18 @@ public class Gestor {
         panelMain.setVisible(true);
 
         //Se generan las estaciones y piezas
-        estaciones = crearEstaciones();
         ArrayList<Pieza> piezas = generarPiezas();
+        crearEstaciones();
         
-        generarEstacionesHilos();
-    }
-
-    public static int getCortadoraEstado() {
-        return cortadoraEstado;
-    }
-
-    public static void setCortadoraEstado(int cortadoraEstado) {
-        Gestor.cortadoraEstado = cortadoraEstado;
+        this.cortadora.operar(piezas.get(0));
+        
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.cortadora.operar(piezas.get(1));
     }
 
     public static Estacion getDobladora() {
@@ -48,9 +44,8 @@ public class Gestor {
         Gestor.dobladora = dobladora;
     }
     
-    
-  
-    private ArrayList<Estacion> crearEstaciones() {
+    //Metodo para generar las 4 estaciones
+    private void crearEstaciones() {
         //Se generan las 4 estaciones, en este caso la cortadora recibe trato especial para las pruebas
         ArrayList<Estacion> estaciones = new ArrayList();
         estaciones.add(new Cortadora());
@@ -64,10 +59,13 @@ public class Gestor {
             System.out.println(estaciones.get(i).getTipo());
         }
         System.out.println("");
-
-        return estaciones;
+        this.estaciones = estaciones;
+        
+        //Se inician los hilos de las estaciones
+        generarEstacionesHilos();
     }
 
+    //Metodo para generar la lista de piezas
     private ArrayList<Pieza> generarPiezas() {
         //Se generan  2 piezas con 2 secuencias diferentes para la prueba
         String[] secuencia = {"corte", "ensamble", "pintura"};
@@ -91,6 +89,7 @@ public class Gestor {
         return piezas;
     }
 
+    //Generador del listener para las pruebas
     private void generarListener() {
         //Se crea el hilo del Listener para detectar cuando este ocupada la cortadora
         Runnable list = new Listener();
@@ -103,11 +102,13 @@ public class Gestor {
         }
     }
 
+    //Metodo para iniciar los hilos de las estaciones
     private void generarEstacionesHilos() {
         //Instanciamos la cortadora para las pruebas de la estacion
         this.cortadora = estaciones.get(0);
         System.out.println(this.cortadora.getTipo());
         
+        //Instanciamos la dobladora para las pruebas de la estacion
         this.dobladora = estaciones.get(1);
         System.out.println(this.dobladora.getTipo());
         

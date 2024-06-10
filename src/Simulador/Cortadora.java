@@ -16,21 +16,36 @@ public class Cortadora extends Estacion{
     
     @Override
     void operar() {
-        System.out.println("");
-        System.out.println("Cortadora: Cortando...");
+        System.out.println("\nCortadora: Cortando...");
         Herramientas.waitInSeconds(3); // Espera 5 segundos
-        System.out.println("Cortadora: Corte terminado");
+        System.out.println("\nCortadora: Corte terminado");
         super.operar(); 
     }
 
     @Override
+    void operar(Pieza pieza) {
+        //Agregar pieza a la maquina
+        this.setPieza(pieza);
+        this.getPieza().toString();
+        System.out.println("\nCortadora: Cortando...");
+        this.getPieza().setEtapa((this.getPieza().getEtapa())+1);
+        Herramientas.waitInSeconds(3); // Espera 5 segundos
+        this.getPieza().toString();
+        System.out.println("\nCortadora: Corte terminado");
+        super.operar(); 
+    }
+
+    //Metodo que espera la activacion de la maquina
+    @Override
     public void run() {
         while (!Thread.interrupted()) {
-            if (!flag) {
+            if (!this.isFlagLibre()) {
                 //Cuando se detecte apagada la bandera libre de la estacion
                 this.operar();
-                this.flag = true;
-                Gestor.panelMain.setEstadoCortadora(flag);
+                //Restablece la bandera
+                this.setFlagLibre(true);
+                //Actualizar el Gui
+                Gestor.panelMain.setEstadoCortadora(this.isFlagLibre());
             }
             try {
                 Thread.sleep(500);

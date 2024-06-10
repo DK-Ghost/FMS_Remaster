@@ -10,8 +10,10 @@ public class EstacionesPanel extends javax.swing.JFrame {
     public EstacionesPanel() {
         initComponents();
         this.cortadoraEstado = true;
+        this.dobladoraEstado = true;
     }
     
+    //Actualiza el color de la estacion segun el estado de la maquina
     public void setEstadoCortadora(boolean libre){
         this.cortadoraEstado = libre;
         if (libre) {
