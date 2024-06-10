@@ -104,6 +104,7 @@ public class EstacionesPanel extends javax.swing.JFrame {
 
     private void btnCortandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCortandoActionPerformed
         setEstadoCortadora(!this.cortadoraEstado);
+        Gestor.estacion.setFlag(false);
     }//GEN-LAST:event_btnCortandoActionPerformed
 
  

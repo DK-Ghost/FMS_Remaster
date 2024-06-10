@@ -2,7 +2,7 @@ package Simulador;
 
 import java.util.ArrayList;
 
-public class Estacion {
+public class Estacion implements Runnable{
     private String tipo; //corte, doblez, pintura, ensamble
     private ArrayList<String> procesos;
     private ArrayList<String> herramientas;
@@ -11,11 +11,19 @@ public class Estacion {
     private double tiempoTotal;
     private int piezasDefectuosas;
     //-----------------------------------
-    private boolean estado;
+    boolean flag;
 
     public Estacion(String tipo) {
         this.tipo = tipo;
-        this.estado = true;
+        this.flag = true;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
     public String getTipo() {
@@ -75,10 +83,12 @@ public class Estacion {
     }
 
     void operar() {
-        this.estado = false;
+        this.flag = true;
+        Gestor.panelMain.setEstadoCortadora(flag);
     }
-    
-    
-    
-    
+
+    @Override
+    public void run() {
+        
+    }
 }
