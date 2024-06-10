@@ -3,24 +3,14 @@ package Simulador;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Cortadora extends Estacion{
-      
+public class Dobladora extends Estacion{
     
-    public Cortadora(String tipo) {
+    public Dobladora(String tipo) {
         super(tipo);
     }
     
-    public Cortadora() {
-        super("corte");
-    }
-    
-    @Override
-    void operar() {
-        System.out.println("");
-        System.out.println("Cortadora: Cortando...");
-        Herramientas.waitInSeconds(3); // Espera 5 segundos
-        System.out.println("Cortadora: Corte terminado");
-        super.operar(); 
+    public Dobladora() {
+        super("doblez");
     }
 
     @Override
@@ -28,9 +18,10 @@ public class Cortadora extends Estacion{
         while (!Thread.interrupted()) {
             if (!flag) {
                 //Cuando se detecte apagada la bandera libre de la estacion
+                System.out.println("Heeeeeelp");
                 this.operar();
                 this.flag = true;
-                Gestor.panelMain.setEstadoCortadora(flag);
+                Gestor.panelMain.setEstadoDobladora(flag);
             }
             try {
                 Thread.sleep(500);
@@ -38,7 +29,18 @@ public class Cortadora extends Estacion{
                 Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        super.run();
-    }    
+        super.run(); 
+    }
+
+    @Override
+    void operar() { 
+        System.out.println("");
+        System.out.println("Dobladora: Doblando...");
+        Herramientas.waitInSeconds(3); // Espera 5 segundos
+        System.out.println("Dobladora: Doblez terminado");
+        super.operar();
+    }
+    
+    
     
 }
