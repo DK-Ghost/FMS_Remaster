@@ -14,7 +14,8 @@ public class Gestor {
     public static EstacionesPanel panelMain;
     private ArrayList<Estacion> estaciones;
     public static int cortadoraEstado = 0;
-    public static Estacion estacion;
+    public static Estacion cortadora;
+    public static Estacion dobladora;
 
     public void empezar() {    
         //genera el listenerpara la prueba del detector de ocupacion
@@ -27,19 +28,8 @@ public class Gestor {
         //Se generan las estaciones y piezas
         estaciones = crearEstaciones();
         ArrayList<Pieza> piezas = generarPiezas();
-
-        //Instanciamos la cortadora para las pruebas de la estacion
-        this.estacion = estaciones.get(0);
-        System.out.println(this.estacion.getTipo());
         
-        //Se inicia el hilo de la estacion
-        Thread t = new Thread(this.estacion);
-        t.start();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        generarEstacionesHilos();
     }
 
     public static int getCortadoraEstado() {
@@ -49,12 +39,22 @@ public class Gestor {
     public static void setCortadoraEstado(int cortadoraEstado) {
         Gestor.cortadoraEstado = cortadoraEstado;
     }
+
+    public static Estacion getDobladora() {
+        return dobladora;
+    }
+
+    public static void setDobladora(Estacion dobladora) {
+        Gestor.dobladora = dobladora;
+    }
+    
+    
   
     private ArrayList<Estacion> crearEstaciones() {
         //Se generan las 4 estaciones, en este caso la cortadora recibe trato especial para las pruebas
         ArrayList<Estacion> estaciones = new ArrayList();
         estaciones.add(new Cortadora());
-        estaciones.add(new Estacion("doblez"));
+        estaciones.add(new Dobladora());
         estaciones.add(new Estacion("ensamble"));
         estaciones.add(new Estacion("pintura"));
 
@@ -96,6 +96,33 @@ public class Gestor {
         Runnable list = new Listener();
         Thread t = new Thread(list);
         t.start();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void generarEstacionesHilos() {
+        //Instanciamos la cortadora para las pruebas de la estacion
+        this.cortadora = estaciones.get(0);
+        System.out.println(this.cortadora.getTipo());
+        
+        this.dobladora = estaciones.get(1);
+        System.out.println(this.dobladora.getTipo());
+        
+        //Se inicia el hilo de la cortadora
+        Thread t = new Thread(this.cortadora);
+        t.start();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Se inicia el hilo de la dobladora
+        Thread t1 = new Thread(this.dobladora);
+        t1.start();
         try {
             Thread.sleep(100);
         } catch (InterruptedException ex) {

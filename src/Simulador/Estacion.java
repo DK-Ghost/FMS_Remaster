@@ -83,8 +83,7 @@ public class Estacion implements Runnable{
     }
 
     void operar() {
-        this.flag = true;
-        Gestor.panelMain.setEstadoCortadora(flag);
+        
     }
 
     @Override
