@@ -2,6 +2,7 @@ package Simulador;
 
 public class Herramientas {
     
+    //Metodo para esperar
     public static  void waitInSeconds(int seconds) {
         try {
             Thread.sleep(seconds * 1000); 

@@ -3,27 +3,45 @@ package Simulador;
 import java.util.ArrayList;
 
 public class Estacion implements Runnable{
-    private String tipo; //corte, doblez, pintura, ensamble
+    private String tipo; //corte, doblez, pintura, ensamble  Identificador de la maquina
     private ArrayList<String> procesos;
-    private ArrayList<String> herramientas;
+    private ArrayList<String> herramientas; 
     private int tiempoAvg;
     private double costoProduccion;
     private double tiempoTotal;
     private int piezasDefectuosas;
     //-----------------------------------
-    boolean flag;
+    private boolean flagLibre; //Bandera de ocupacion true = libre / false = ocupada
+    private Pieza pieza;  //La pieza que operara la maquina
 
+    @Override
+    public void run() {
+        
+    } 
+    
     public Estacion(String tipo) {
         this.tipo = tipo;
-        this.flag = true;
+        this.flagLibre = true;
     }
 
-    public boolean isFlag() {
-        return flag;
+    public boolean isFlagLibre() {
+        return flagLibre;
+    }
+    
+    public void setFlagLibre(boolean flagLibre) {
+        this.flagLibre = flagLibre;
     }
 
+    public Pieza getPieza() {
+        return pieza;
+    }
+
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
+    }
+   
     public void setFlag(boolean flag) {
-        this.flag = flag;
+        this.flagLibre = flag;
     }
 
     public String getTipo() {
@@ -82,12 +100,12 @@ public class Estacion implements Runnable{
         this.piezasDefectuosas = piezasDefectuosas;
     }
 
+    //Metodo donde se realiza la operacion de la estacion
     void operar() {
         
     }
 
-    @Override
-    public void run() {
+    void operar(Pieza get) {
         
     }
 }

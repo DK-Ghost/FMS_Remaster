@@ -113,5 +113,13 @@ public class Pieza {
     public void setProvedores(ArrayList<String> provedores) {
         this.provedores = provedores;
     }
+
+    @Override
+    public String toString() {
+        System.out.println(this.getNombre()+" "+this.getColor()+" Etapa: "+this.getSecuencia()[this.getEtapa()]);
+        return super.toString();
+    }
+    
+    
     
 }

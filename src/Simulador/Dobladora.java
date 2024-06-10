@@ -13,15 +13,15 @@ public class Dobladora extends Estacion{
         super("doblez");
     }
 
+    //Metodo que espera la activacion de la maquina
     @Override
     public void run() {
         while (!Thread.interrupted()) {
-            if (!flag) {
+            if (!this.isFlagLibre()) {
                 //Cuando se detecte apagada la bandera libre de la estacion
-                System.out.println("Heeeeeelp");
                 this.operar();
-                this.flag = true;
-                Gestor.panelMain.setEstadoDobladora(flag);
+                this.setFlagLibre(true);
+                Gestor.panelMain.setEstadoDobladora(this.isFlagLibre());
             }
             try {
                 Thread.sleep(500);
@@ -34,10 +34,9 @@ public class Dobladora extends Estacion{
 
     @Override
     void operar() { 
-        System.out.println("");
-        System.out.println("Dobladora: Doblando...");
+        System.out.println("\nDobladora: Doblando...");
         Herramientas.waitInSeconds(3); // Espera 5 segundos
-        System.out.println("Dobladora: Doblez terminado");
+        System.out.println("\nDobladora: Doblez terminado");
         super.operar();
     }
     
