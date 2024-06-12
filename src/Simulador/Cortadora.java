@@ -3,8 +3,7 @@ package Simulador;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Cortadora extends Estacion{
-      
+public class Cortadora extends Estacion{     
     
     public Cortadora(String tipo) {
         super(tipo);
@@ -26,12 +25,14 @@ public class Cortadora extends Estacion{
     void operar(Pieza pieza) {
         //Agregar pieza a la maquina
         this.setPieza(pieza);
+        System.out.print("Pieza a operar: ");
         this.getPieza().toString();
-        System.out.println("\nCortadora: Cortando...");
+        System.out.println("Cortadora: Cortando...");
         this.getPieza().setEtapa((this.getPieza().getEtapa())+1);
         Herramientas.waitInSeconds(3); // Espera 5 segundos
+        System.out.print("Pieza a lista para recoger: ");
         this.getPieza().toString();
-        System.out.println("\nCortadora: Corte terminado");
+        System.out.println("Cortadora: Corte terminado\n");
         super.operar(); 
     }
 
