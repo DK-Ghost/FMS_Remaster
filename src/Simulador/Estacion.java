@@ -105,6 +105,7 @@ public class Estacion implements Runnable{
         
     }
 
+    //Metodo donde se realiza la operacion de la estacion
     void operar(Pieza get) {
         
     }

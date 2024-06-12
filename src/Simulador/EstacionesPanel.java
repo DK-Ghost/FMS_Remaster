@@ -13,7 +13,7 @@ public class EstacionesPanel extends javax.swing.JFrame {
         this.dobladoraEstado = true;
     }
     
-    //Actualiza el color de la estacion segun el estado de la maquina
+    //Actualiza el color de la cortadora segun el estado de la maquina
     public void setEstadoCortadora(boolean libre){
         this.cortadoraEstado = libre;
         if (libre) {
@@ -23,6 +23,7 @@ public class EstacionesPanel extends javax.swing.JFrame {
         }
     }
     
+    //Actualiza el color de la dobladora segun el estado de la maquina
     public void setEstadoDobladora(boolean libre) {
         this.dobladoraEstado = libre;
         if (libre) {
@@ -43,6 +44,7 @@ public class EstacionesPanel extends javax.swing.JFrame {
         estDobladoraPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btnDoblar = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(javax.swing.UIManager.getDefaults().getColor("CheckBox.darkShadow"));
@@ -108,6 +110,13 @@ public class EstacionesPanel extends javax.swing.JFrame {
             }
         });
 
+        btnSiguiente.setText("Siguiente");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout canvasLayout = new javax.swing.GroupLayout(canvas);
         canvas.setLayout(canvasLayout);
         canvasLayout.setHorizontalGroup(
@@ -117,11 +126,17 @@ public class EstacionesPanel extends javax.swing.JFrame {
                 .addGroup(canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(estDobladoraPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(estCortadoraPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(92, 92, 92)
-                .addGroup(canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCortando)
-                    .addComponent(btnDoblar))
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addGroup(canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(canvasLayout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addGroup(canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnCortando)
+                            .addComponent(btnDoblar))
+                        .addContainerGap(293, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, canvasLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSiguiente)
+                        .addGap(172, 172, 172))))
         );
         canvasLayout.setVerticalGroup(
             canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +153,9 @@ public class EstacionesPanel extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(estDobladoraPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(canvasLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGap(2, 2, 2)
+                        .addComponent(btnSiguiente)
+                        .addGap(28, 28, 28)
                         .addComponent(btnDoblar)))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
@@ -159,15 +176,18 @@ public class EstacionesPanel extends javax.swing.JFrame {
 
     private void btnCortandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCortandoActionPerformed
         setEstadoCortadora(!this.cortadoraEstado);
-        Gestor.cortadora.setFlag(false);
+        Gestor.getCortadora().setFlag(false);
     }//GEN-LAST:event_btnCortandoActionPerformed
 
     private void btnDoblarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoblarActionPerformed
         setEstadoDobladora(!this.dobladoraEstado);
-        Gestor.dobladora.setFlag(false);
+        Gestor.getDobladora().setFlag(false);
     }//GEN-LAST:event_btnDoblarActionPerformed
 
- 
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        Gestor.siguientePieza();
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -195,6 +215,7 @@ public class EstacionesPanel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCortando;
     private javax.swing.JButton btnDoblar;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JPanel canvas;
     private javax.swing.JPanel estCortadoraPanel;
     private javax.swing.JPanel estDobladoraPanel;
